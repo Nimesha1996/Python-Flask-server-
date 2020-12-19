@@ -50,12 +50,6 @@ def delete_user(username):  # noqa: E501
 
     This can only be done by the logged in user. # noqa: E501
 
-    :param username: The name that needs to be deleted
-    :type username: str
-
-    :rtype: None
-    
-    return 'do some magic!'
     """
     
     user = User.query.filter_by(username=username).first_or_404()
@@ -112,7 +106,7 @@ def logout_user():  # noqa: E501
     return 'do some magic!'
 
 
-def update_user(username, user=None):  # noqa: E501
+def update_user(username):  # noqa: E501
     """Update user
 
     This can only be done by the logged in user. # noqa: E501
@@ -124,7 +118,32 @@ def update_user(username, user=None):  # noqa: E501
 
     :rtype: None
     """
-    if connexion.request.is_json:
-        user = User.from_dict(connexion.request.get_json())  # noqa: E501
-    return 'do some magic!'
 
+    update_user = User.query.filter_by(username=username).first_or_404()
+
+    print(update_user)
+
+    id = request.json.get('id' , '')
+    username = request.json.get('username', '')
+    firstName= request.json.get('firstName', '')
+    lastName = request.json.get('lastName', '')
+    password = request.json.get('password', '')
+    email = request.json.get('email', '')
+    phone = request.json.get('phone','')
+    userStatus = request.json.get('userStatus', '')
+    
+
+    update_user.id = id
+    update_user.username = username
+    update_user.firstName = firstName
+    update_user.lastName = lastName
+    update_user.password = password
+    update_user.email = email
+    update_user.phone = phone
+    update_user.userStatus = userStatus
+
+    db.session.add(update_user)
+    db.session.commit()
+
+    return user_schema.jsonify(update_user)
+    
