@@ -20,16 +20,18 @@ def create_user():  # noqa: E501
         user = User.from_dict(connexion.request.get_json())  # noqa: E501
     return 'do some magic!'
     """
+    
+   
+    id = request.json.get('id' , '')
+    username = request.json.get('username', '')
+    firstName= request.json.get('firstName', '')
+    lastName = request.json.get('lastName', '')
+    password = request.json.get('password', '')
+    email = request.json.get('email', '')
+    phone = request.json.get('phone','')
+    userStatus = request.json.get('userStatus', '')
 
-    id = request.json['id']
-    username = request.json['username']
-    firstName= request.json['firstName']
-    lastName = request.json['lastName']
-    email = request.json['email']
-    phone = request.json['phone']
-    userStatus = request.json['userStatus']
-
-    new_user = User(id,username,firstName,lastName,email,phone,userStatus)
+    new_user = User(id=id,username=username,firstName=firstName,lastName=lastName,password=password,email=email,phone=phone,userStatus=userStatus)
 
     db.session.add(new_user)
     db.session.commit()

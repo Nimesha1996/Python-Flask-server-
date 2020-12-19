@@ -83,11 +83,12 @@ class User(db.Model):
     phone = db.Column(db.String(120), nullable=False)
     userStatus = db.Column(db.Integer, nullable=False)
 	
-    def __init__(self, id, username, firstName, lastName, email, phone, userStatus):
+    def __init__(self, id, username, firstName, lastName, password, email, phone, userStatus):
         self.id = id
         self.username = username
         self.firstName = firstName
         self.lastName = lastName
+        self.password = password
         self.email = email
         self.phone = phone
         self.userStatus = userStatus
