@@ -69,12 +69,7 @@ class Tag(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     name= db.Column(db.String(120), nullable=False)
 
-"""
-class Serializer(object):
-    @staticmethod
-    def serialize_list(l):
-        return [m.serialize() for m in l]
-"""
+
 
 class User(db.Model):
     __tablename__ = 'User'
@@ -101,32 +96,8 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = User
 
-
-    
-"""    
-# User Schema
-    
-class UserSchema(ma.Schema):
-    class MetaUser:
-        fields = ('id', 'username', 'firstName', 'lastName', 'email', 'phone', 'userStaus')
-
-"""
 user_schema = UserSchema()
-   
-""" 
-def serialize(self):
-    user_serialized = {
-        'id': self.id ,
-        'username': self.username,
-        'firstName': self.firstName ,
-        'lastName': self.lastName  ,
-        'email': self.email,
-        'phone': self.phone  ,
-        'userStatus': self.userStatus 
-    }
-
-    return json.loads(json.dumps(user_serialized)
-"""	
+	
 
 Customer_Address = db.Table('Customer_Address', db.metadata,
    

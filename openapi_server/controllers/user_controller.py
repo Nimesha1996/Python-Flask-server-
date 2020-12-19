@@ -81,24 +81,15 @@ def get_user_by_name(username):  # noqa: E501
 
     :rtype: User
     """
- 
-#    userbyname = User.query.filter(User.username == username)
-#    result = user_schema.dump(userbyname)
-#    return jsonify(result)
    
     print(User.query.all())
- #   UserbyName= User.query.filter_by(request.json['username']).first()
+
     UserbyName = User.query.filter_by(username=username).first_or_404() 
- #   print(UserbyName.username)
- #   print(UserbyName.firstName)
-#   userByName = User.query.get(username)
-#    result = user_schema.dump(UserbyName)
-#    return UserbyName
-#    return 'hello'
- #   UserbyName = User.query.get(username)
+ 
     print(UserbyName)
     print(UserbyName.email)
     return user_schema.jsonify(UserbyName)
+
 def login_user(username=None, password=None):  # noqa: E501
     """Logs user into the system
 
