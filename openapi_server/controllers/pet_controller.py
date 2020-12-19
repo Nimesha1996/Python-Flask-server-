@@ -16,6 +16,8 @@ def add_pet(pet=None):  # noqa: E501
 
     :rtype: Pet
     """
+    
+
     if connexion.request.is_json:
         pet = Pet.from_dict(connexion.request.get_json())  # noqa: E501
     return 'do some magic!'
@@ -46,7 +48,9 @@ def find_pets_by_status(status=None):  # noqa: E501
 
     :rtype: List[Pet]
     """
-    return 'do some magic!'
+ #   companies = [{"id": 1, "name": "Company One"}, {"id": 2, "name": "Company Two"}]
+ #    return json.dumps(companies) 
+   
 
 
 def find_pets_by_tags(tags=None):  # noqa: E501
