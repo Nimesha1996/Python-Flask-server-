@@ -1,9 +1,11 @@
+
 import connexion
 import six
+from flask import Flask, request, jsonify
 
-from openapi_server.models.order import Order  # noqa: E501
+from openapi_server.classes.db_model import *
 from openapi_server import util
-
+from openapi_server.appConfig import db 
 
 def delete_order(order_id):  # noqa: E501
     """Delete purchase order by ID
@@ -39,8 +41,15 @@ def get_order_by_id(order_id):  # noqa: E501
 
     :rtype: Order
     """
-    return 'do some magic!'
+    print(order_id)
+#    return 'do some magic!'
+#    print(Order.query.all())
 
+    orderbyId = Order.query.filter_by(id=order_id).first_or_404() 
+ 
+    print(orderbyId)
+ #   print(UserbyName.email)
+    return order_schema.jsonify(orderbyId)
 
 def place_order(order=None):  # noqa: E501
     """Place an order for a pet

@@ -1,10 +1,9 @@
 import connexion
 import six
-from flask import Flask, request, jsonify
-#from openapi_server.models.user import User  # noqa: E501
-from openapi_server.classes.db_model import *
+
+from openapi_server.models.api_response import ApiResponse  # noqa: E501
+from openapi_server.models.pet import Pet  # noqa: E501
 from openapi_server import util
-from openapi_server.appConfig import db
 
 
 def add_pet(pet=None):  # noqa: E501
@@ -16,25 +15,14 @@ def add_pet(pet=None):  # noqa: E501
     :type pet: dict | bytes
 
     :rtype: Pet
-    """        
+    """
     
 
-    id = request.json.get('id' , '')
-    name = request.json.get('name', '')
-    category= request.json.get('category', [])
-    photoUrls = request.json.get('photoUrls', [])
-    tags = request.json.get('tags', [])
-    status = request.json.get('status', '')
- 
-
-    new_pet = Pet(id=id,name=name , category=category,photoUrls=photoUrls,tags=tags,status=status)
-
-    db.session.add(new_pet)
-    db.session.commit()
-
-    return pet_schema.jsonify(new_pet)
+    if connexion.request.is_json:
+        pet = Pet.from_dict(connexion.request.get_json())  # noqa: E501
+    return 'do some magic!'
     
-    
+
 
 def delete_pet(pet_id, api_key=None):  # noqa: E501
     """Deletes a pet
@@ -48,7 +36,7 @@ def delete_pet(pet_id, api_key=None):  # noqa: E501
 
     :rtype: None
     """
-    
+    return 'do some magic!'
 
 
 def find_pets_by_status(status=None):  # noqa: E501
@@ -88,19 +76,9 @@ def get_pet_by_id(pet_id):  # noqa: E501
     :type pet_id: int
 
     :rtype: Pet
-
     """
-#    print(Pet.query.all())
-#    pet = Pet.query.filter_by(id = pet_id).first_or_404() 
-#    PetbyId = Pet.query.get(id)
-#    PetbyId = Pet.query.filter_by(id=pet_id).first()
-#    print(parent) 
-     
-#    pet = Pet.query.all()
-#    print(pet)
-#    print(PetbyId.name)
-#    return pet_schema.jsonify(PetbyId)
     return 'do some magic!'
+
 
 def update_pet(pet=None):  # noqa: E501
     """Update an existing pet
