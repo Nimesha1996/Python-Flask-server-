@@ -17,8 +17,14 @@ def delete_order(order_id):  # noqa: E501
 
     :rtype: None
     """
-    return 'do some magic!'
+    orderbyId = Order.query.filter_by(id=order_id).first_or_404()
+ 
+    print(orderbyId)
 
+    db.session.delete(orderbyId)
+    db.session.commit()
+    
+    return order_schema.jsonify(orderbyId)
 
 def get_inventory():  # noqa: E501
     """Returns pet inventories by status
@@ -28,7 +34,12 @@ def get_inventory():  # noqa: E501
 
     :rtype: Dict[str, int]
     """
-    return 'do some magic!'
+    
+    order= Order.query.all()
+    orderStatus = order.status
+    print(orderStatus)
+    
+    return order_schema.jsonify(order)
 
 
 def get_order_by_id(order_id):  # noqa: E501
@@ -61,6 +72,16 @@ def place_order(order=None):  # noqa: E501
 
     :rtype: Order
     """
-    if connexion.request.is_json:
-        order = Order.from_dict(connexion.request.get_json())  # noqa: E501
-    return 'do some magic!'
+    id = request.json.get('id' , '')
+    petId = request.json.get('petId', '')
+    quantity= request.json.get('quantity', '')
+    shipDate = request.json.get('shipDate', '')
+    status = request.json.get('status', '')
+    complete = request.json.get('complete', '')
+    
+    new_order = Order(id=id,petId=petId, quantity=quantity, shipDate=shipDate, status=status, complete=complete)
+
+    db.session.add(new_order)
+    db.session.commit()
+
+    return order_schema.jsonify(new_order)

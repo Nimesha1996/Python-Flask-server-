@@ -69,7 +69,7 @@ class Order(db.Model):
 #   pet = db.relationship('Pet', secondary=Order_Pet, backref=db.backref('Order', lazy='dynamic'), lazy='dynamic')
    
 
-    def __init__(self, id, pet_id, quantity, shipDate, status, complete):
+    def __init__(self, id, petId, quantity, shipDate, status, complete):
         self.id = id
         self.petId = petId
         self.quantity = quantity
